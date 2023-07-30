@@ -1,0 +1,18 @@
+/**
+ * @package   Clarion Template - RocketTheme
+ * @version   1.0 February 1, 2012
+ * @author    RocketTheme http://www.rockettheme.com
+ * @copyright Copyright (C) 2007 - 2012 RocketTheme, LLC
+ * @license   http://www.rockettheme.com/legal/license.php RocketTheme Proprietary Use License
+*/
+
+/* Reminder:  320 / 480 */
+body .logo-block {margin-top:30px;}
+body .floatright {margin-top: 30px !important;}
+span.no-link {margin: -3px;}
+body #rt-header {min-height: 120px;border-radius: 0 !important;}
+#rt-menu {margin-bottom: -18px !important;border-radius: 0 !important;}
+#rt-menu .container {border-radius: 0 !important;}
+
+/* Demo */
+body .floatleft, body .feb12-home .roktabs-container-wrapper .wrapper .floatleft {margin-right: 0 !important;}

@@ -1,0 +1,12 @@
+[14-Aug-2018 15:53:40 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/m/mls1/ag-a.ru/public_html/libraries/gantry/core/gantrybrowser.class.php on line 30
+[14-Aug-2018 15:53:40 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/m/mls1/ag-a.ru/public_html/libraries/gantry/core/gantrybrowser.class.php on line 30
+[14-Aug-2018 15:53:40 Europe/Moscow] PHP Notice:  Undefined index: HTTP_USER_AGENT in /home/m/mls1/ag-a.ru/public_html/modules/mod_roknavmenu/lib/common/RokBrowserCheck.php on line 22
+[18-Jan-2019 21:02:35 Europe/Moscow] PHP Fatal error:  Uncaught exception 'InvalidArgumentException' with message 'Invalid URI detected.' in /home/m/mls1/ag-a.ru/public_html/libraries/joomla/environment/uri.php:194
+Stack trace:
+#0 /home/m/mls1/ag-a.ru/public_html/libraries/joomla/application/application.php(248): JURI::getInstance()
+#1 /home/m/mls1/ag-a.ru/public_html/includes/application.php(135): JApplication->route()
+#2 /home/m/mls1/ag-a.ru/public_html/index.php(36): JSite->route()
+#3 {main}
+  thrown in /home/m/mls1/ag-a.ru/public_html/libraries/joomla/environment/uri.php on line 194
+[11-Feb-2019 09:27:32 Europe/Moscow] PHP Warning:  preg_match() [0function.preg-match0]: Compilation failed: regular expression is too large at offset 35725 in /home/m/mls1/ag-a.ru/public_html/libraries/phputf8/stristr.php on line 30
+[23-Apr-2019 22:46:20 Europe/Moscow] PHP Warning:  preg_match() [0function.preg-match0]: Compilation failed: regular expression is too large at offset 35820 in /home/m/mls1/ag-a.ru/public_html/libraries/phputf8/stristr.php on line 30

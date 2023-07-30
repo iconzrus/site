@@ -1,0 +1,162 @@
+<?php
+include('classes/antibot-class.php');
+//echo "<pre><br />"; var_dump($_POST); die();
+$ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+if (!$ip) $ip = $_SERVER["REMOTE_ADDR"];
+$d = date("d.m.Y - G:i", time());
+$botCode = Antibot::antirobotNumber();
+if($botCode != $_POST['confirm']) {
+   $Content = '<h1>Анкета</h1><p>Неверный код проверки.</p>';
+   include_once("pages/layout/top.phtml");
+   include_once("pages/layout/work.phtml");
+   include_once("pages/layout/bottom.phtml");
+   header("Refresh:3; url=/anketa/form.htm"); die();
+}
+$message = <<<TEXT
+<h2>Анкета с сайта $HTTP_HOST</h2>
+
+<table class="table_form">
+  <tr>
+    <td class="sel" align="right">Название компании:</td>
+    <td>$_POST[company]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Контактное лицо:</td>
+    <td>$_POST[name]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Телефон:</td>
+    <td>$_POST[phone]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Электронный адрес:</td>
+    <td>$_POST[email]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Вид деятельности:</td>
+    <td>$_POST[vid]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Наличие обособленных подразделений и филиалов<br />(указать количество):</td>
+    <td>$_POST[nalic]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Внешнеэкономическая деятельность:</td>
+    <td>$_POST[vnesh]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Описание задачи:</td>
+    <td>$_POST[sist]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Численность сотрудников:</td>
+    <td>$_POST[number]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Какой программный продукт Вы используете для ведения б/учета:</td>
+    <td>$_POST[progr]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Требуется ли Вам вести учет товаров в разрезе наименований:</td>
+    <td>$_POST[razrez]</td>
+  </tr>
+  <tr>
+    <td colspan="2"><div align="center">ДОКУМЕНТООБОРОТ (указать количество документов за период)</div></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Выберите расчетный период:</td>
+    <td>$_POST[period]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Платежных поручений по рублевым счетам (входящих и исходящих):</td>
+    <td>$_POST[plat_rub]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Платежных поручений по валютным счетам (входящих и исходящих):</td>
+    <td>$_POST[plat_val]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Кассовые ордера (на приход и расход наличных д.с.):</td>
+    <td>$_POST[kass_order]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Накладные исходящие (реализация товаров):</td>
+    <td>$_POST[real_tov]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Акты выполненных работ (реализация услуг):</td>
+    <td>$_POST[acts]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Накладные входящие:</td>
+    <td>$_POST[nakl_vhod]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Количество позиций в накладных входящих<br />(указать среднее количество строк):</td>
+    <td>$_POST[kolvo_nakl]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Акты выполненных работ входящие:</td>
+    <td>$_POST[acts_vhod]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Авансовые отчеты (хоз. нужды):</td>
+    <td>$_POST[avans_ot]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Командировки по России:</td>
+    <td>$_POST[po_ros]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Командировки зарубежные:</td>
+    <td>$_POST[zarub]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Договора займа (кредита) процентные:</td>
+    <td>$_POST[dog_kred]</td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Прочая информация о не перечисленных выше операциях компании:</td>
+    <td>$_POST[other_info]</td>
+  </tr>
+</table>
+
+TEXT
+;
+
+//echo "<pre><br />"; var_dump($message); die();
+
+ob_start();
+include("mail.css");
+$style_text = ob_get_contents();
+ob_end_clean();
+
+
+$message = "
+<html>
+<base href=\"$baseRef\" />
+<meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1251\" />
+<head>$style_text</head>
+<body style=\"padding: 20px\" bgcolor=\"#FFF\">
+
+$message
+<hr />
+<div class=\"text\">Письмо отправлено с адреса: $ip<br /></div>
+</body>
+</html>
+";
+$subject = "=?windows-1251?b?" . base64_encode('Анкета с сайта '.$HTTP_HOST)."?=";
+
+$extra = "FROM: "."info@profbuh.ru"./*($_POST['email'] ? $_POST['email'] : '').*/"\nX-Mailer: AlexFill subscribe daemon\nContent-Type: text/html; charset=Windows-1251\nContent-Transfer-Encoding: 8bit";
+//mail("zudina@alexfill.ru", $subject, $message, $extra);
+
+mail("MorozovaEO@profbuh.ru", $subject, $message, $extra);//
+mail("MorozovaEO@2Kaudit.ru", $subject, $message, $extra);// 
+
+//mail("info@profbuh.ru", $subject, $message, $extra);
+mail("OsokinaYI@profbuh.ru", $subject, $message, $extra);
+//mail("info@alexfill.ru", $subject, $message, $extra);
+//mail("malkov@diogenes.ru", $subject, $message, $extra);
+//echo $message;
+header('Location: ok.htm');
+?>

@@ -1,0 +1,8 @@
+User-Agent: *
+Disallow: /tilda/form*
+Disallow: /tilda/rec*
+Disallow: /tilda/click*
+Disallow: /tilda/scroll*
+Disallow: /tilda/popup*
+Sitemap: http://ag-a.ru/sitemap.xml
+Host: ag-a.ru

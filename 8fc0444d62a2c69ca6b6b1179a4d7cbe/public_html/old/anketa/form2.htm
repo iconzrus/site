@@ -1,0 +1,178 @@
+<?php
+include('classes/antibot-class.php');
+Antibot::generateNewABNum();
+$CrumbMenu = array('<a href="/">Главная страница</a>', 'Анкета');
+foreach ($_POST as $id => $row) echo '<br>id='.$id.' => '.$row.'<br>';
+?>
+<h1>Анкета</h1>
+<h2>Для определения стоимости ведения бухгалтерского учета:</h2>
+<form action="anketa/send.htm" method="post" name="order" onSubmit="return formCheck(order)">
+<table class="table_form">
+  <tr>
+    <td class="sel" style="width: 40%" align="right">Название компании:</td>
+    <td><input name="company" style="width: 90%" value="<%= $_POST['company'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Контактное лицо:</td>
+    <td><input name="name" style="width: 90%" value="<%= $_POST['name'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Телефон:</td>
+    <td><input name="phone" style="width: 90%" value="<%= $_POST['phone'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Электронный адрес:</td>
+    <td><input name="email" style="width: 90%" value="<%= $_POST['email'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Вид деятельности:</td>
+    <td><input name="vid" style="width: 90%" value="<%= $_POST['vid'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Наличие обособленных подразделений и филиалов<br />(указать количество):</td>
+    <td><input name="nalic" style="width: 90%" value="<%= $_POST['nalic'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Внешнеэкономическая деятельность:</td>
+    <td>
+    <select name="vnesh" size = "1">
+    <option value="импорт">импорт</option>
+    <option value="экспорт">экспорт</option>
+    <option value="то и другое">то и другое</option>
+    <option value="нет">нет</option>
+    </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Система налогообложения:</td>
+    <td>
+    <select name="sist" size = "1">
+    <option value="обычная">обычная</option>
+    <option value="упрощенная">упрощенная</option>
+    <option value="ЕНВД">ЕНВД</option>
+    <option value="обычная + ЕНВД">обычная + ЕНВД</option>
+    <option value="упрощенная + ЕНВД">упрощенная + ЕНВД</option>
+    </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Численность сотрудников:</td>
+    <td><input name="number" style="width: 90%" value="<%= $_POST['number'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Какой программный продукт Вы используете для ведения б/учета:</td>
+    <td><input name="progr" style="width: 90%" value="<%= $_POST['progr'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Требуется ли Вам вести учет товаров в разрезе наименований:</td>
+    <td>
+    <select name="razrez" size = "1">
+    <option value="Да">Да</option>
+    <option value="Нет">Нет</option>
+    <option value="Не определились">Не определились</option>
+    </select>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><div align="center">ДОКУМЕНТООБОРОТ (указать количество документов за период)</div></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Выберите расчетный период:</td>
+    <td>
+    <select name="period" size = "1">
+    <option value="месяц">месяц</option>
+    <option value="квартал">квартал</option>
+    <option value="год">год</option>
+    </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Платежных поручений по рублевым счетам (входящих и исходящих):</td>
+    <td><input name="plat_rub" style="width: 90%" value="<%= $_POST['plat_rub'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Платежных поручений по валютным счетам (входящих и исходящих):</td>
+    <td><input name="plat_val" style="width: 90%" value="<%= $_POST['plat_val'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Кассовые ордера <br/>(на приход и расход наличных д.с.):</td>
+    <td><input name="kass_order" style="width: 90%" value="<%= $_POST['kass_order'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Накладные исходящие (реализация товаров):</td>
+    <td><input name="real_tov" style="width: 90%" value="<%= $_POST['real_tov'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Акты выполненных работ (реализация услуг):</td>
+    <td><input name="acts" style="width: 90%" value="<%= $_POST['acts'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Накладные входящие:</td>
+    <td><input name="nakl_vhod" style="width: 90%" value="<%= $_POST['nakl_vhod'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Количество позиций в накладных входящих<br />(указать среднее количество строк):</td>
+    <td><input name="kolvo_nakl" style="width: 90%" value="<%= $_POST['kolvo_nakl'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Акты выполненных работ входящие:</td>
+    <td><input name="acts_vhod" style="width: 90%" value="<%= $_POST['acts_vhod'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Авансовые отчеты (хоз. нужды):</td>
+    <td><input name="avans_ot" style="width: 90%" value="<%= $_POST['avans_ot'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Командировки по России:</td>
+    <td><input name="po_ros" style="width: 90%" value="<%= $_POST['po_ros'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Командировки зарубежные:</td>
+    <td><input name="zarub" style="width: 90%" value="<%= $_POST['zarub'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Договора займа (кредита) процентные:</td>
+    <td><input name="dog_kred" style="width: 90%" value="<%= $_POST['dog_kred'] %>" /></td>
+  </tr>
+  <tr>
+    <td class="sel" align="right">Прочая информация о не перечисленных выше операциях компании:</td>
+    <td><input name="other_info" style="width: 90%" value="<%= $_POST['other_info'] %>" /></td>
+  </tr>
+  <tr>
+    <td align="right" style="text-align: right" nowrap><img src="./confirm_code.php" border="0" /></td>
+    <td><input type="text" style="width:50px" name="confirm" maxlength="5" value="" class="edit" /></td>
+  </tr>
+</table>
+<div align="center" style="margin-top: 10px"><input style="height: 21px; border: 0px; font:normal 12px tahoma; color: #9f9f9f; background-color: #F8F8F8; text-decoration: none; padding-right: 5px; cursor: pointer; cursor: hand" type="submit" value="Отправить анкету"/></div>
+</form>
+<script language=javascript>
+<!--
+  function formCheck(form_name) {
+    if (!form_name.company.value.match(/^[a-Я0-9_-]+[a-Я0-9 _-]*/i)) {
+      alert("Правильно укажите название компании!\r\название может состоять из букв латинского алфавита и кирилицы, цифр, пробелов, знаков \"-\" и \"_\".");
+      form_name.company.focus();
+      return false;
+    }
+    if (!form_name.name.value.match(/^[a-Я0-9_-]+[a-Я0-9 _-]*/i)) {
+      alert("Правильно укажите контактное лицо!\r\Наименование может состоять из букв латинского алфавита и кирилицы, цифр, пробелов, знаков \"-\" и \"_\".");
+      form_name.name.focus();
+      return false;
+    }
+    if (!form_name.phone.value.match(/^[a-Я0-9_-]+[a-Я0-9 _-]*/i)) {
+      alert("Вы не заполнили поле: Телефон/факс");
+      form_name.phone.focus();
+      return false;
+    }
+    if (!form_name.ysluga.value.match(/^[a-Я0-9_-]+[a-Я0-9 _-]*/i)) {
+      alert("Вы не заполнили поле: Необходимая услуга");
+      form_name.ysluga.focus();
+      return false;
+    }
+    if (!form_name.otraslel.value.match(/^[a-Я0-9_-]+[a-Я0-9 _-]*/i)) {
+      alert("Вы не заполнили поле: Отраслевая специализация");
+      form_name.otraslel.focus();
+      return false;
+    }
+  }
+-->
+</script>
